@@ -1,0 +1,21 @@
+feature,importance
+historical_rainfall_intensity_mm_hr,0.28889647
+miami,0.15569733
+latitude,0.13255459
+shenzhen,0.08427038
+usa,0.080325186
+roads c,0.070706315
+6 copernicus_glo,0.044884846
+x srtm_1arc,0.044269033
+zone,0.037735898
+return_period_years,0.020260986
+longitude,0.00820097
+borough,0.0070213103
+borough north,0.0054728566
+north srtm_3arc,0.005021473
+china borough,0.004272366
+manhole era5,0.0031662842
+elevation_m,0.0022138858
+china sector,0.0013732809
+d,0.001274624
+storm_drain_proximity_m,0.0008455543

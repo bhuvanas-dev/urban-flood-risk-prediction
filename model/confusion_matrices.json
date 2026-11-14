@@ -1,0 +1,32 @@
+{
+    "monitor": {
+        "true_negative": 150,
+        "false_positive": 2,
+        "false_negative": 2,
+        "true_positive": 346
+    },
+    "low_lying": {
+        "true_negative": 383,
+        "false_positive": 1,
+        "false_negative": 1,
+        "true_positive": 115
+    },
+    "extreme_rain_history": {
+        "true_negative": 469,
+        "false_positive": 0,
+        "false_negative": 1,
+        "true_positive": 30
+    },
+    "sparse_drainage": {
+        "true_negative": 477,
+        "false_positive": 0,
+        "false_negative": 0,
+        "true_positive": 23
+    },
+    "ponding_hotspot": {
+        "true_negative": 457,
+        "false_positive": 11,
+        "false_negative": 5,
+        "true_positive": 27
+    }
+}

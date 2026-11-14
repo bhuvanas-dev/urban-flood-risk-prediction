@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FloodIntel | Urban Flood Prediction</title>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="brand">
+            <div class="brand-icon">🌧</div>
+            <div>
+                <h2>FloodIntel</h2>
+                <span>Prediction System</span>
+            </div>
+        </div>
+
+        <div class="menu-title">MAIN MENU</div>
+
+        <nav class="navigation">
+            <a href="#dashboard" class="nav-link">
+                <span>▦</span> Dashboard
+            </a>
+
+            <a href="#prediction" class="nav-link">
+                <span>⌖</span> Flood Prediction
+            </a>
+
+            <a href="#analytics" class="nav-link">
+                <span>▥</span> Model Analytics
+            </a>
+
+            <a href="#evaluation" class="nav-link">
+                <span>◈</span> Model Evaluation
+            </a>
+
+            <a href="#about" class="nav-link">
+                <span>ⓘ</span> About Project
+            </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="status-dot"></div>
+            <span>ML Model Available</span>
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+        <!-- HEADER -->
+        <header class="topbar">
+            <div>
+                <h2>Urban Flood Intelligence</h2>
+                <p>Machine Learning Based Prediction Dashboard</p>
+            </div>
+
+            <div class="model-status">
+                <span class="status-dot"></span>
+                XGBoost Model
+            </div>
+        </header>
+
+
+        <!-- DASHBOARD -->
+        <section id="dashboard" class="content-section">
+
+            <div class="welcome-banner">
+                <div>
+                    <span class="banner-label">
+                        INTELLIGENT FLOOD RISK ANALYSIS
+                    </span>
+
+                    <h1>Urban Flood Risk Prediction</h1>
+
+                    <p>
+                        Analyze rainfall, terrain, land-use and drainage
+                        characteristics to identify flood-related
+                        descriptive patterns.
+                    </p>
+
+                    <a href="#prediction" class="primary-button">
+                        Start Prediction →
+                    </a>
+                </div>
+
+                <div class="banner-symbol">🌧️</div>
+            </div>
+
+
+            <!-- STATISTICS -->
+            <div class="stats-grid">
+
+                <div class="stat-card">
+                    <div class="stat-icon blue">▦</div>
+                    <div>
+                        <p>Training Records</p>
+                        <h2>2,400</h2>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon green">✓</div>
+                    <div>
+                        <p>Testing Records</p>
+                        <h2>500</h2>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon orange">◎</div>
+                    <div>
+                        <p>Exact Match Accuracy</p>
+                        <h2>95.8%</h2>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon purple">◇</div>
+                    <div>
+                        <p>Prediction Labels</p>
+                        <h2>05</h2>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- SYSTEM OVERVIEW -->
+            <div class="section-heading">
+                <h2>System Overview</h2>
+                <p>Overview of the machine learning implementation.</p>
+            </div>
+
+            <div class="overview-grid">
+
+                <div class="overview-card">
+                    <h3>01. Data Processing</h3>
+                    <p>
+                        Dataset processing using text preprocessing
+                        and numerical feature scaling.
+                    </p>
+                </div>
+
+                <div class="overview-card">
+                    <h3>02. Feature Extraction</h3>
+                    <p>
+                        TF-IDF extraction for descriptive fields
+                        and seven numerical input features.
+                    </p>
+                </div>
+
+                <div class="overview-card">
+                    <h3>03. Classification</h3>
+                    <p>
+                        XGBoost-based multi-label classification
+                        for five descriptive dataset labels.
+                    </p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- FLOOD PREDICTION -->
+        <section id="prediction" class="content-section">
+
+            <div class="section-heading">
+                <h2>Flood Prediction</h2>
+                <p>
+                    Enter the location, terrain, drainage and
+                    rainfall information.
+                </p>
+            </div>
+
+
+            <form method="POST" class="prediction-form">
+
+                <!-- LOCATION AND TERRAIN -->
+                <div class="form-section">
+
+                    <h3>📍 Location &amp; Terrain</h3>
+
+                    <div class="form-grid">
+
+                        <label>
+                            City
+                            <input type="text" name="city_name"
+                                   value="{{ defaults['city_name'] }}" required>
+                        </label>
+
+                        <label>
+                            Administrative Ward
+                            <input type="text" name="admin_ward"
+                                   value="{{ defaults['admin_ward'] }}" required>
+                        </label>
+
+                        <label>
+                            Latitude
+                            <input type="number" step="any" name="latitude"
+                                   value="{{ defaults['latitude'] }}" required>
+                        </label>
+
+                        <label>
+                            Longitude
+                            <input type="number" step="any" name="longitude"
+                                   value="{{ defaults['longitude'] }}" required>
+                        </label>
+
+                        <label>
+                            Elevation (m)
+                            <input type="number" step="any" name="elevation_m"
+                                   value="{{ defaults['elevation_m'] }}" required>
+                        </label>
+
+                        <label>
+                            DEM Source
+                            <input type="text" name="dem_source"
+                                   value="{{ defaults['dem_source'] }}" required>
+                        </label>
+
+                    </div>
+                </div>
+
+
+                <!-- LAND USE AND DRAINAGE -->
+                <div class="form-section">
+
+                    <h3>🏙 Land Use &amp; Drainage</h3>
+
+                    <div class="form-grid">
+
+                        <label>
+                            Land Use
+                            <input type="text" name="land_use"
+                                   value="{{ defaults['land_use'] }}" required>
+                        </label>
+
+                        <label>
+                            Soil Group
+                            <input type="text" name="soil_group"
+                                   value="{{ defaults['soil_group'] }}" required>
+                        </label>
+
+                        <label>
+                            Storm Drain Type
+                            <input type="text" name="storm_drain_type"
+                                   value="{{ defaults['storm_drain_type'] }}" required>
+                        </label>
+
+                        <label>
+                            Distance to Storm Drain (m)
+                            <input type="number" step="any"
+                                   name="storm_drain_proximity_m"
+                                   value="{{ defaults['storm_drain_proximity_m'] }}"
+                                   required>
+                        </label>
+
+                        <label>
+                            Drainage Density (km/km²)
+                            <input type="number" step="any"
+                                   name="drainage_density_km_per_km2"
+                                   value="{{ defaults['drainage_density_km_per_km2'] }}"
+                                   required>
+                        </label>
+
+                    </div>
+                </div>
+
+
+                <!-- RAINFALL -->
+                <div class="form-section">
+
+                    <h3>🌧 Rainfall Information</h3>
+
+                    <div class="form-grid">
+
+                        <label>
+                            Rainfall Source
+                            <input type="text" name="rainfall_source"
+                                   value="{{ defaults['rainfall_source'] }}" required>
+                        </label>
+
+                        <label>
+                            Historical Rainfall Intensity (mm/hr)
+                            <input type="number" step="any"
+                                   name="historical_rainfall_intensity_mm_hr"
+                                   value="{{ defaults['historical_rainfall_intensity_mm_hr'] }}"
+                                   required>
+                        </label>
+
+                        <label>
+                            Return Period (Years)
+                            <input type="number" step="any"
+                                   name="return_period_years"
+                                   value="{{ defaults['return_period_years'] }}"
+                                   required>
+                        </label>
+
+                    </div>
+                </div>
+
+
+                <button type="submit" class="predict-button">
+                    Run Flood Prediction →
+                </button>
+
+            </form>
+
+
+            <!-- ERROR MESSAGE -->
+            {% if error %}
+            <div class="error">
+                {{ error }}
+            </div>
+            {% endif %}
+
+
+            <!-- PREDICTION RESULTS -->
+            {% if result %}
+
+            <div class="result-card">
+
+                <h2>Prediction Results</h2>
+
+                {% if result.tags %}
+
+                    <p class="detected-title">Detected Labels</p>
+
+                    <div class="tags">
+                        {% for tag in result.tags %}
+                            <span>{{ tag }}</span>
+                        {% endfor %}
+                    </div>
+
+                {% else %}
+
+                    <p>
+                        No target label crossed the 50% prediction
+                        threshold. Review the probability scores below.
+                    </p>
+
+                {% endif %}
+
+
+                <h3>Model Confidence Scores</h3>
+
+                {% for tag, score in result.scores.items() %}
+
+                <div class="score-row">
+
+                    <div class="score-heading">
+                        <span>{{ tag }}</span>
+                        <strong>{{ score }}%</strong>
+                    </div>
+
+                    <div class="score-track">
+                        <div class="score-fill"
+                             data-width="{{ score }}">
+                        </div>
+                    </div>
+
+                </div>
+
+                {% endfor %}
+
+                <p class="note">
+                    These are model probabilities for the original
+                    dataset labels, not real-world flood probabilities.
+                </p>
+
+            </div>
+
+            {% endif %}
+
+        </section>
+
+
+        <!-- MODEL ANALYTICS -->
+        <section id="analytics" class="content-section">
+
+            <div class="section-heading">
+                <h2>Model Analytics</h2>
+                <p>
+                    Feature importance extracted from the trained
+                    XGBoost classification models.
+                </p>
+            </div>
+
+
+            <!-- MONITOR -->
+            <div class="analytics-card">
+
+                <h3>Monitor Prediction Model</h3>
+
+                <p class="analytics-description">
+                    Top features contributing to the monitor label model.
+                </p>
+
+                {% for name, value in [
+                    ('Elevation', 8.50),
+                    ('Indonesia sector', 4.67),
+                    ('a', 3.58),
+                    ('Mixed unknown', 3.31),
+                    ('Historical rainfall intensity', 2.89)
+                ] %}
+
+                <div class="feature-row">
+                    <div class="feature-heading">
+                        <span>{{ name }}</span>
+                        <b>{{ value }}%</b>
+                    </div>
+
+                    <div class="feature-track">
+                        <div class="feature-fill"
+                             data-width="{{ value / 10 * 100 }}">
+                        </div>
+                    </div>
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+
+            <!-- LOW LYING -->
+            <div class="analytics-card">
+
+                <h3>Low Lying Prediction Model</h3>
+
+                <p class="analytics-description">
+                    Top features contributing to the low-lying label model.
+                </p>
+
+                {% for name, value in [
+                    ('Elevation', 38.11),
+                    ('Vietnam', 4.68),
+                    ('Brazil', 4.55),
+                    ('France', 4.36),
+                    ('China', 3.88)
+                ] %}
+
+                <div class="feature-row">
+                    <div class="feature-heading">
+                        <span>{{ name }}</span>
+                        <b>{{ value }}%</b>
+                    </div>
+
+                    <div class="feature-track">
+                        <div class="feature-fill"
+                             data-width="{{ value / 40 * 100 }}">
+                        </div>
+                    </div>
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+
+            <!-- EXTREME RAIN HISTORY -->
+            <div class="analytics-card">
+
+                <h3>Extreme Rain History Model</h3>
+
+                <p class="analytics-description">
+                    Top features contributing to the extreme-rain-history model.
+                </p>
+
+                {% for name, value in [
+                    ('Historical rainfall intensity', 28.89),
+                    ('Miami', 15.57),
+                    ('Latitude', 13.26),
+                    ('Shenzhen', 8.43),
+                    ('USA', 8.03)
+                ] %}
+
+                <div class="feature-row">
+                    <div class="feature-heading">
+                        <span>{{ name }}</span>
+                        <b>{{ value }}%</b>
+                    </div>
+
+                    <div class="feature-track">
+                        <div class="feature-fill"
+                             data-width="{{ value / 30 * 100 }}">
+                        </div>
+                    </div>
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+
+            <!-- SPARSE DRAINAGE -->
+            <div class="analytics-card">
+
+                <h3>Sparse Drainage Model</h3>
+
+                <p class="analytics-description">
+                    Top features contributing to the sparse-drainage model.
+                </p>
+
+                {% for name, value in [
+                    ('Drainage density', 35.09),
+                    ('Water', 11.59),
+                    ('Roads', 9.69),
+                    ('Industrial', 8.28),
+                    ('Commercial', 7.30)
+                ] %}
+
+                <div class="feature-row">
+                    <div class="feature-heading">
+                        <span>{{ name }}</span>
+                        <b>{{ value }}%</b>
+                    </div>
+
+                    <div class="feature-track">
+                        <div class="feature-fill"
+                             data-width="{{ value / 40 * 100 }}">
+                        </div>
+                    </div>
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+
+            <!-- PONDING HOTSPOT -->
+            <div class="analytics-card">
+
+                <h3>Ponding Hotspot Model</h3>
+
+                <p class="note">
+                    The feature-importance report for this model
+                    has not yet been independently verified.
+                    Therefore, its chart is not displayed.
+                </p>
+
+            </div>
+
+
+            <div class="important-note">
+                <strong>Note:</strong>
+                Feature importance indicates the relative contribution
+                of model features. It does not establish causation.
+                Some displayed text features are TF-IDF tokens from
+                descriptive dataset columns.
+            </div>
+
+        </section>
+
+
+        <!-- MODEL EVALUATION -->
+        <section id="evaluation" class="content-section">
+
+            <div class="section-heading">
+                <h2>Model Evaluation</h2>
+                <p>
+                    Evaluation results using the independent
+                    testing dataset.
+                </p>
+            </div>
+
+
+            <div class="evaluation-cards">
+
+                <div class="eval-card">
+                    <span>Exact Match Accuracy</span>
+                    <h2>95.8%</h2>
+                </div>
+
+                <div class="eval-card">
+                    <span>Training Records</span>
+                    <h2>2,400</h2>
+                </div>
+
+                <div class="eval-card">
+                    <span>Testing Records</span>
+                    <h2>500</h2>
+                </div>
+
+                <div class="eval-card">
+                    <span>Prediction Labels</span>
+                    <h2>5</h2>
+                </div>
+
+            </div>
+
+
+            <!-- CLASSIFICATION TABLE -->
+            <div class="analytics-card">
+
+                <h3>Classification Performance</h3>
+
+                <div class="table-container">
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Risk Label</th>
+                                <th>Precision</th>
+                                <th>Recall</th>
+                                <th>F1-Score</th>
+                                <th>Support</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>Monitor</td>
+                                <td>99.43%</td>
+                                <td>99.43%</td>
+                                <td>99.43%</td>
+                                <td>348</td>
+                            </tr>
+
+                            <tr>
+                                <td>Low Lying</td>
+                                <td>99.14%</td>
+                                <td>99.14%</td>
+                                <td>99.14%</td>
+                                <td>116</td>
+                            </tr>
+
+                            <tr>
+                                <td>Extreme Rain History</td>
+                                <td>100%</td>
+                                <td>96.77%</td>
+                                <td>98.36%</td>
+                                <td>31</td>
+                            </tr>
+
+                            <tr>
+                                <td>Sparse Drainage</td>
+                                <td>100%</td>
+                                <td>100%</td>
+                                <td>100%</td>
+                                <td>23</td>
+                            </tr>
+
+                            <tr>
+                                <td>Ponding Hotspot</td>
+                                <td>71.05%</td>
+                                <td>84.38%</td>
+                                <td>77.14%</td>
+                                <td>32</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+
+            <!-- CONFUSION MATRIX -->
+            <div class="analytics-card">
+
+                <h3>Confusion Matrix Summary</h3>
+
+                <div class="table-container">
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Label</th>
+                                <th>TP</th>
+                                <th>TN</th>
+                                <th>FP</th>
+                                <th>FN</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>Monitor</td>
+                                <td>346</td>
+                                <td>150</td>
+                                <td>2</td>
+                                <td>2</td>
+                            </tr>
+
+                            <tr>
+                                <td>Low Lying</td>
+                                <td>115</td>
+                                <td>383</td>
+                                <td>1</td>
+                                <td>1</td>
+                            </tr>
+
+                            <tr>
+                                <td>Extreme Rain History</td>
+                                <td>30</td>
+                                <td>469</td>
+                                <td>0</td>
+                                <td>1</td>
+                            </tr>
+
+                            <tr>
+                                <td>Sparse Drainage</td>
+                                <td>23</td>
+                                <td>477</td>
+                                <td>0</td>
+                                <td>0</td>
+                            </tr>
+
+                            <tr>
+                                <td>Ponding Hotspot</td>
+                                <td>27</td>
+                                <td>457</td>
+                                <td>11</td>
+                                <td>5</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+
+            <!-- PERFORMANCE CHART -->
+            <div class="analytics-card">
+
+                <h3>Performance Comparison Chart</h3>
+
+                <div class="chart-container">
+                    <canvas id="performanceChart"></canvas>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ABOUT PROJECT -->
+        <section id="about" class="content-section">
+
+            <div class="section-heading">
+                <h2>About Project</h2>
+                <p>Research project information.</p>
+            </div>
+
+            <div class="analytics-card">
+
+                <h3>
+                    Spatiotemporal Machine Learning for Early Prediction
+                    of Urban Flood Risk Using Rainfall, Terrain and
+                    Drainage Data
+                </h3>
+
+                <p>
+                    This project applies machine learning techniques
+                    to analyze structured urban environmental data
+                    and identify flood-related descriptive patterns.
+                </p>
+
+                <br>
+
+                <p><strong>Algorithm:</strong> XGBoost Classification</p>
+                <p><strong>Feature Extraction:</strong> TF-IDF</p>
+                <p><strong>Numerical Features:</strong> 7</p>
+                <p><strong>Text Features:</strong> 7 input columns</p>
+                <p><strong>Training Records:</strong> 2,400</p>
+                <p><strong>Testing Records:</strong> 500</p>
+                <p><strong>Frontend:</strong> HTML, CSS, JavaScript</p>
+                <p><strong>Backend:</strong> Python Flask</p>
+
+            </div>
+
+        </section>
+
+
+        <!-- FOOTER -->
+        <footer class="footer">
+            FloodIntel | Urban Flood Risk Prediction System
+        </footer>
+
+    </main>
+
+</div>
+
+
+<!-- PERFORMANCE CHART SCRIPT -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    // Apply model-generated progress-bar widths without inline Jinja CSS.
+    document.querySelectorAll("[data-width]").forEach(function (bar) {
+        const width = Number(bar.dataset.width);
+        if (Number.isFinite(width)) {
+            bar.style.width = Math.max(0, Math.min(100, width)) + "%";
+        }
+    });
+
+    const chartElement = document.getElementById("performanceChart");
+
+    if (chartElement && typeof Chart !== "undefined") {
+
+        new Chart(chartElement, {
+
+            type: "bar",
+
+            data: {
+                labels: [
+                    "Monitor",
+                    "Low Lying",
+                    "Extreme Rain History",
+                    "Sparse Drainage",
+                    "Ponding Hotspot"
+                ],
+
+                datasets: [
+                    {
+                        label: "Precision",
+                        data: [99.43, 99.14, 100, 100, 71.05],
+                        backgroundColor: "#4169e1"
+                    },
+                    {
+                        label: "Recall",
+                        data: [99.43, 99.14, 96.77, 100, 84.38],
+                        backgroundColor: "#18a999"
+                    },
+                    {
+                        label: "F1 Score",
+                        data: [99.43, 99.14, 98.36, 100, 77.14],
+                        backgroundColor: "#f4a340"
+                    }
+                ]
+            },
+
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        title: {
+                            display: true,
+                            text: "Performance (%)"
+                        }
+                    }
+                },
+
+                plugins: {
+                    legend: {
+                        position: "bottom"
+                    }
+                }
+            }
+
+        });
+    }
+
+});
+</script>
+</body>
+</html>

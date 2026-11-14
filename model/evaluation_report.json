@@ -1,0 +1,65 @@
+{
+  "target_tags": [
+    "monitor",
+    "low_lying",
+    "extreme_rain_history",
+    "sparse_drainage",
+    "ponding_hotspot"
+  ],
+  "text_columns": [
+    "city_name",
+    "admin_ward",
+    "dem_source",
+    "land_use",
+    "soil_group",
+    "storm_drain_type",
+    "rainfall_source"
+  ],
+  "numeric_columns": [
+    "latitude",
+    "longitude",
+    "elevation_m",
+    "drainage_density_km_per_km2",
+    "storm_drain_proximity_m",
+    "historical_rainfall_intensity_mm_hr",
+    "return_period_years"
+  ],
+  "train_records": 2400,
+  "test_records": 500,
+  "tfidf_features": 963,
+  "numeric_features": 7,
+  "test_exact_match_accuracy": 0.962,
+  "per_tag_metrics": {
+    "monitor": {
+      "test_support": 348,
+      "precision": 0.9971,
+      "recall": 0.9971,
+      "f1_score": 0.9971
+    },
+    "low_lying": {
+      "test_support": 116,
+      "precision": 1.0,
+      "recall": 0.9914,
+      "f1_score": 0.9957
+    },
+    "extreme_rain_history": {
+      "test_support": 31,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1_score": 1.0
+    },
+    "sparse_drainage": {
+      "test_support": 23,
+      "precision": 0.9583,
+      "recall": 1.0,
+      "f1_score": 0.9787
+    },
+    "ponding_hotspot": {
+      "test_support": 32,
+      "precision": 0.7105,
+      "recall": 0.8438,
+      "f1_score": 0.7714
+    }
+  },
+  "note": "Date-specific event_* tags remain in the original dataset but are not predicted as generalizable classes."
+}

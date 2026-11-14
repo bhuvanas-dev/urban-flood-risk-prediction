@@ -1,0 +1,21 @@
+feature,importance
+drainage_density_km_per_km2,0.3508963
+water,0.11588815
+roads,0.096883155
+industrial,0.08283243
+commercial,0.072992586
+green,0.03922433
+institutional,0.03210891
+district,0.02645614
+mixed,0.026147189
+residential,0.024510434
+30,0.02157607
+b,0.010117248
+gratedinlet era5,0.008455008
+sector,0.007946112
+c gratedinlet,0.007701311
+unknown manhole,0.0063101775
+manhole era5,0.0045693684
+storm_drain_proximity_m,0.0040843147
+green a,0.004016778
+a manhole,0.0034701654

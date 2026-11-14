@@ -1,0 +1,21 @@
+feature,importance
+elevation_m,0.2318571
+historical_rainfall_intensity_mm_hr,0.21457669
+drainage_density_km_per_km2,0.12919737
+china,0.060186177
+return_period_years,0.023776153
+shenzhen,0.022433147
+green,0.01954537
+vancouver,0.01779963
+30_v2023 residential,0.016941754
+latitude,0.014751289
+10_v5 green,0.014122487
+netherlands,0.012450759
+canada,0.012355213
+srtm_1arc residential,0.0122035295
+south,0.011637502
+imd,0.011005893
+roads d,0.010237899
+a,0.009753429
+a openchannel,0.009053624
+srtm_1arc,0.00872116

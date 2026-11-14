@@ -1,0 +1,13 @@
+venv/
+__pycache__/
+*.pyc
+.env
+
+original_dataset.xlsx
+train_2400.csv
+test_500.csv
+unused_63.csv
+
+database.py
+*.db
+model/test_predictions.csv
